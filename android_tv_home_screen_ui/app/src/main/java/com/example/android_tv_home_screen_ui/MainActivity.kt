@@ -1,41 +1,54 @@
 package com.example.android_tv_home_screen_ui
 
 import android.os.Bundle
-import androidx.fragment.app.FragmentActivity
 import android.view.KeyEvent
-import android.widget.TextView
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import com.example.android_tv_home_screen_ui.ui.screens.HomeScreen
+import com.example.android_tv_home_screen_ui.ui.theme.OceanTheme
+import com.example.android_tv_home_screen_ui.data.mock.MockContent
 
 /**
- * Main Activity for Android TV
- * Extends FragmentActivity for Leanback compatibility
+ * PUBLIC_INTERFACE
+ * MainActivity is the Android TV entrypoint.
+ *
+ * This activity hosts a Jetpack Compose UI for the Home screen:
+ * - Fixed top navigation
+ * - Preview/Hero section
+ * - Horizontally scrolling carousels
+ * - DPAD/Enter/Back handling friendly for TV
+ *
+ * No backend dependencies; uses static mock data and Figma-derived styles.
  */
-class MainActivity : FragmentActivity() {
-
-    private lateinit var titleText: TextView
+class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        
-        titleText = findViewById(R.id.title_text)
-        titleText.text = "android_tv_home_screen_ui"
-        
-        // TODO: Initialize your rating screen components here
-        // setupRatingOverlay()
+        setContent {
+            OceanTheme {
+                val selected = remember { mutableStateOf(MockContent.rows.first().items.first()) }
+                HomeScreen(
+                    rows = MockContent.rows,
+                    selectedItem = selected.value,
+                    onSelectedChange = { selected.value = it }
+                )
+            }
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        // Handle TV remote control inputs
+        // Allow Compose focus system to consume DPAD; fall back to default where necessary
         return when (keyCode) {
             KeyEvent.KEYCODE_DPAD_CENTER,
             KeyEvent.KEYCODE_ENTER -> {
-                // Handle SELECT/OK button
+                // Compose handles click via focused element
                 true
             }
             KeyEvent.KEYCODE_BACK -> {
-                // Handle BACK button
-                finish()
-                true
+                // Let Compose handle overlay states; default finishes if none
+                super.onKeyDown(keyCode, event)
             }
             else -> super.onKeyDown(keyCode, event)
         }

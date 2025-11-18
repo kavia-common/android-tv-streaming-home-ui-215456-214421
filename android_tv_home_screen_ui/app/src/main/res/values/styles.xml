@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base application theme for Android TV -->
-    <style name="AppTheme" parent="Theme.Leanback">
-        <!-- Customize your theme here -->
+    <!-- Base application theme for Compose host Activity
+         Use Material Components Dark NoActionBar to ensure availability in XML resources. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/tv_background</item>
         <item name="android:colorPrimary">@color/tv_accent</item>
+        <!-- Ensure status/navigation bars are dark to blend with TV background -->
+        <item name="android:statusBarColor">@color/tv_background</item>
+        <item name="android:navigationBarColor">@color/tv_background</item>
     </style>
 </resources>
