@@ -1,8 +1,8 @@
 package com.example.android_tv_home_screen_ui.ui.components
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -30,7 +30,7 @@ fun ActionButtons(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        FocusScale(cornerRadius = 12.dp) { _, interactionSource ->
+        FocusScale(cornerRadius = 12.dp) { _, interactionSource: MutableInteractionSource ->
             Button(
                 onClick = onPlay,
                 interactionSource = interactionSource,
@@ -43,7 +43,7 @@ fun ActionButtons(
                 Text("Play", style = MaterialTheme.typography.labelLarge)
             }
         }
-        FocusScale(cornerRadius = 12.dp) { _, interactionSource ->
+        FocusScale(cornerRadius = 12.dp) { _, interactionSource: MutableInteractionSource ->
             Button(
                 onClick = onAdd,
                 interactionSource = interactionSource,
@@ -56,7 +56,7 @@ fun ActionButtons(
                 Text("Add to List", style = MaterialTheme.typography.labelLarge)
             }
         }
-        FocusScale(cornerRadius = 12.dp) { _, interactionSource ->
+        FocusScale(cornerRadius = 12.dp) { _, interactionSource: MutableInteractionSource ->
             Button(
                 onClick = onInfo,
                 interactionSource = interactionSource,

@@ -2,6 +2,7 @@ package com.example.android_tv_home_screen_ui.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusGroup
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,8 +16,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -82,7 +81,7 @@ fun TopNavBar(
         ) {
             items.forEachIndexed { index, label ->
                 val isSelected = index == selectedIndex
-                FocusScale(cornerRadius = 12.dp) { _, interactionSource ->
+                FocusScale(cornerRadius = 12.dp) { _, interactionSource: MutableInteractionSource ->
                     Button(
                         onClick = { onSelect(index) },
                         interactionSource = interactionSource,

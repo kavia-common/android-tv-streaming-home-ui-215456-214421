@@ -4,10 +4,10 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.FocusInteraction
-import androidx.compose.foundation.interaction.InteractionSource
+import androidx.compose.foundation.interaction.Interaction
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.collectLatest
@@ -39,13 +38,13 @@ fun FocusScale(
     modifier: Modifier = Modifier,
     focusedScale: Float = 1.08f,
     cornerRadius: Dp = 12.dp,
-    content: @Composable (isFocused: Boolean, interactionSource: InteractionSource) -> Unit
+    content: @Composable (isFocused: Boolean, interactionSource: MutableInteractionSource) -> Unit
 ) {
-    val interactionSource = remember { InteractionSource() }
+    val interactionSource = remember { MutableInteractionSource() }
     val focused = remember { mutableStateOf(false) }
 
     LaunchedEffect(interactionSource) {
-        interactionSource.interactions.collectLatest { interaction ->
+        interactionSource.interactions.collectLatest { interaction: Interaction ->
             when (interaction) {
                 is FocusInteraction.Focus -> focused.value = true
                 is FocusInteraction.Unfocus -> focused.value = false
