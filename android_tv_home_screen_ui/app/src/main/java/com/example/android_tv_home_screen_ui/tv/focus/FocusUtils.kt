@@ -3,16 +3,12 @@ package com.example.android_tv_home_screen_ui.tv.focus
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.focusable
-import androidx.compose.foundation.interaction.FocusInteraction
-import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -20,7 +16,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.flow.collectLatest
 
 /**
  * PUBLIC_INTERFACE
@@ -41,19 +36,10 @@ fun FocusScale(
     content: @Composable (isFocused: Boolean, interactionSource: MutableInteractionSource) -> Unit
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    val focused = remember { mutableStateOf(false) }
+    val isFocusedState = interactionSource.collectIsFocusedAsState()
 
-    LaunchedEffect(interactionSource) {
-        interactionSource.interactions.collectLatest { interaction: Interaction ->
-            when (interaction) {
-                is FocusInteraction.Focus -> focused.value = true
-                is FocusInteraction.Unfocus -> focused.value = false
-            }
-        }
-    }
-
-    val scale = animateFloatAsState(if (focused.value) focusedScale else 1f, label = "focus-scale")
-    val border = if (focused.value) BorderStroke(
+    val scale = animateFloatAsState(if (isFocusedState.value) focusedScale else 1f, label = "focus-scale")
+    val border = if (isFocusedState.value) BorderStroke(
         2.dp,
         Brush.radialGradient(
             listOf(
@@ -69,10 +55,10 @@ fun FocusScale(
             .focusable(interactionSource = interactionSource),
         shape = RoundedCornerShape(cornerRadius),
         color = Color.Transparent,
-        tonalElevation = if (focused.value) 6.dp else 0.dp,
-        shadowElevation = if (focused.value) 12.dp else 0.dp,
+        tonalElevation = if (isFocusedState.value) 6.dp else 0.dp,
+        shadowElevation = if (isFocusedState.value) 12.dp else 0.dp,
         border = border
     ) {
-        content(focused.value, interactionSource)
+        content(isFocusedState.value, interactionSource)
     }
 }

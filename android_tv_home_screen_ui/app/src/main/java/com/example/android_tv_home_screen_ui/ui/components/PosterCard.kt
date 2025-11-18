@@ -1,6 +1,5 @@
 package com.example.android_tv_home_screen_ui.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
