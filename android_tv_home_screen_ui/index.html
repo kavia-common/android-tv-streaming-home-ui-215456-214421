@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Android TV Home - Ocean Professional</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/common.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div id="app" class="tv-safe">
+    <!-- Top Navigation -->
+    <header class="topbar" role="navigation" aria-label="Main">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true"></div>
+        <div class="brand-name">StreamTV</div>
+      </div>
+      <nav class="topnav" aria-label="Sections">
+        <button class="nav-item tv-focusable" data-navindex="0" tabindex="0" aria-label="Home" aria-selected="true">Home</button>
+        <button class="nav-item tv-focusable" data-navindex="1" tabindex="0" aria-label="Movies">Movies</button>
+        <button class="nav-item tv-focusable" data-navindex="2" tabindex="0" aria-label="Series">Series</button>
+        <button class="nav-item tv-focusable" data-navindex="3" tabindex="0" aria-label="My List">My List</button>
+      </nav>
+      <div class="profile" aria-label="Profile">
+        <img src="../assets/figmaimages/figma_image_1_231.png" alt="User avatar">
+      </div>
+    </header>
+
+    <!-- Hero / Preview section -->
+    <section id="hero" class="hero" role="region" aria-label="Selected content preview">
+      <div class="hero-bg">
+        <img id="hero-backdrop" src="../assets/figmaimages/figma_image_1_13.png" alt="" aria-hidden="true">
+        <div class="hero-gradient" aria-hidden="true"></div>
+      </div>
+      <div class="hero-content">
+        <h1 id="hero-title">Featured Title</h1>
+        <p id="hero-desc">Description of the selected item will appear here with a short snippet optimized for TV readability.</p>
+        <div class="hero-actions" role="group" aria-label="Actions">
+          <button id="action-play" class="btn btn-primary tv-focusable" tabindex="0" aria-label="Play">Play</button>
+          <button id="action-add" class="btn btn-secondary tv-focusable" tabindex="0" aria-label="Add to List">Add to List</button>
+          <button id="action-info" class="btn btn-surface tv-focusable" tabindex="0" aria-label="Info">Info</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rows -->
+    <main id="rows" role="main" aria-label="Carousels">
+      <section class="row" data-rowindex="0" aria-label="Trending Now">
+        <h2 class="row-title">Trending Now</h2>
+        <div class="carousel" role="list">
+          <!-- items injected by JS -->
+        </div>
+      </section>
+
+      <section class="row" data-rowindex="1" aria-label="Recommended for You">
+        <h2 class="row-title">Recommended for You</h2>
+        <div class="carousel" role="list">
+          <!-- items injected by JS -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Info Modal -->
+  <div id="info-overlay" class="overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Content details">
+    <div class="overlay-backdrop"></div>
+    <div class="overlay-card" role="document">
+      <div class="overlay-hero">
+        <img id="overlay-backdrop" src="../assets/figmaimages/figma_image_1_540.png" alt="" aria-hidden="true">
+        <div class="overlay-gradient" aria-hidden="true"></div>
+      </div>
+      <div class="overlay-body">
+        <h3 id="overlay-title">Title</h3>
+        <p id="overlay-meta" class="overlay-meta">2h 14m • Action • +16</p>
+        <p id="overlay-desc">Longer description text for the content info overlay.</p>
+        <div class="overlay-actions">
+          <button id="overlay-play" class="btn btn-primary tv-focusable" tabindex="0" aria-label="Play from Info">Play</button>
+          <button id="overlay-add" class="btn btn-secondary tv-focusable" tabindex="0" aria-label="Add from Info">Add</button>
+          <button id="overlay-close" class="btn btn-surface tv-focusable" tabindex="0" aria-label="Close Info">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

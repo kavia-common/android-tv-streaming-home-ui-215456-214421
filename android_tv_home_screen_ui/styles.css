@@ -1,0 +1,229 @@
+:root {
+  --bg: #000000;
+  --surface: #1F2937;
+  --text: #FFFFFF;
+  --primary: #F97316;
+  --secondary: #10B981;
+  --error: #EF4444;
+
+  --radius: 12px;
+  --focus-outer: 0 0 0 4px rgba(255,255,255,0.95);
+  --focus-inner: 0 0 0 8px rgba(249,115,22,0.55);
+  --shadow-hero: 0 30px 60px rgba(0,0,0,0.7);
+  --shadow-card: 0 12px 28px rgba(0,0,0,0.5);
+
+  --spacing-1: 8px;
+  --spacing-2: 12px;
+  --spacing-3: 16px;
+  --spacing-4: 24px;
+  --spacing-5: 32px;
+  --spacing-6: 48px;
+
+  --card-w: 320px;
+  --card-h: 180px;
+  --card-scale-focus: 1.08;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  overflow: hidden; /* prevent default scroll on Arrow keys */
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 88px;
+  padding: 0 var(--spacing-6);
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0));
+}
+
+.brand { display: flex; align-items: center; gap: var(--spacing-3); }
+.brand-logo {
+  width: 40px; height: 40px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary), #fb923c);
+  box-shadow: var(--shadow-card);
+}
+.brand-name { font-size: 24px; font-weight: 800; letter-spacing: 0.5px; }
+
+.topnav {
+  display: flex; gap: var(--spacing-4);
+  align-items: center;
+  background: rgba(31,41,55,0.6);
+  padding: 10px 14px;
+  border-radius: 14px;
+  backdrop-filter: blur(6px);
+}
+.nav-item {
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  padding: 12px 18px;
+  border-radius: var(--radius);
+  font-size: 20px;
+  font-weight: 700;
+}
+.nav-item[aria-selected="true"] {
+  background: rgba(249,115,22,0.18);
+  box-shadow: inset 0 0 0 1px rgba(249,115,22,0.4);
+}
+.profile img {
+  width: 56px; height: 56px; border-radius: 50%;
+  object-fit: cover; border: 2px solid rgba(255,255,255,0.2);
+}
+
+.hero {
+  position: relative;
+  height: 520px;
+  margin-top: var(--spacing-3);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-hero);
+}
+.hero-bg { position: absolute; inset: 0; }
+.hero-bg img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: saturate(1.05) contrast(1.05);
+  transform: scale(1.02);
+}
+.hero-gradient {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.75), rgba(0,0,0,0.25), rgba(0,0,0,0.65));
+}
+.hero-content {
+  position: relative; z-index: 1;
+  padding: var(--spacing-6);
+  max-width: 60%;
+}
+.hero-content h1 {
+  margin: 0 0 var(--spacing-3) 0;
+  font-size: 56px;
+  font-weight: 800;
+  text-shadow: 0 3px 12px rgba(0,0,0,0.7);
+}
+.hero-content p {
+  margin: 0 0 var(--spacing-4) 0;
+  font-size: 20px; line-height: 1.6;
+  color: #e5e7eb;
+}
+.hero-actions { display: flex; gap: var(--spacing-3); }
+
+.btn {
+  border: 0;
+  border-radius: var(--radius);
+  padding: 14px 22px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  transition: transform 80ms ease-out, box-shadow 80ms ease-out, background-color 120ms ease-out, opacity 120ms ease-out;
+}
+.btn-primary {
+  background: var(--primary);
+  color: #111827;
+}
+.btn-secondary {
+  background: var(--secondary);
+  color: #052e1b;
+}
+.btn-surface {
+  background: rgba(255,255,255,0.1);
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
+}
+
+#rows {
+  margin-top: var(--spacing-5);
+  padding: 0 var(--spacing-6);
+}
+.row { margin-bottom: var(--spacing-6); }
+.row-title {
+  margin: 0 0 var(--spacing-3) 0;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.25px;
+}
+.carousel {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--card-w);
+  gap: var(--spacing-4);
+  overflow: hidden; /* we will translateX for scrolling */
+  will-change: transform;
+}
+
+.card {
+  width: var(--card-w);
+  height: var(--card-h);
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+  transform: scale(1);
+  transition: transform 80ms ease-out, box-shadow 80ms ease-out;
+}
+.card img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+.card .shine {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(1000px 280px at var(--mx, 20%) var(--my, 20%), rgba(255,255,255,0.18), transparent 40%);
+  opacity: 0; transition: opacity 120ms ease-out;
+}
+.card .label {
+  position: absolute; left: 12px; bottom: 12px;
+  padding: 6px 10px; border-radius: 10px;
+  background: rgba(0,0,0,0.5); color: var(--text);
+  font-weight: 700; font-size: 14px;
+}
+
+.tv-focusable:focus-visible,
+.nav-item:focus-visible,
+.btn:focus-visible,
+.card:focus-visible {
+  box-shadow: var(--focus-outer), var(--focus-inner);
+  outline: none;
+  transform: scale(1.02);
+}
+.card:focus-visible {
+  transform: scale(var(--card-scale-focus));
+}
+.card:focus-visible .shine { opacity: 1; }
+
+.overlay {
+  position: fixed; inset: 0; z-index: 50;
+  display: none;
+}
+.overlay[aria-hidden="false"] { display: block; }
+.overlay-backdrop {
+  position: absolute; inset: 0; background: rgba(0,0,0,0.72);
+}
+.overlay-card {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(1100px, 86vw);
+  height: min(720px, 80vh);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-hero);
+  display: grid;
+  grid-template-rows: 42% 58%;
+}
+.overlay-hero { position: relative; background: #000; }
+.overlay-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.overlay-gradient { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)); }
+.overlay-body { padding: 24px 28px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 10px; }
+.overlay-body h3 { margin: 0; font-size: 36px; font-weight: 800; }
+.overlay-meta { margin: 0; color: #cbd5e1; font-size: 18px; }
+.overlay-body p { margin: 8px 0 0 0; line-height: 1.6; }
+.overlay-actions { margin-top: 12px; display: flex; gap: 14px; }
