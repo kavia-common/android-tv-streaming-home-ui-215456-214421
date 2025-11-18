@@ -1,0 +1,15 @@
+Build status: SUCCESS
+Command: ./gradlew :app:assembleDebug --stacktrace --no-daemon
+Timestamp: 2025-11-18T00:00:00Z
+
+Gradle output (truncated to key lines):
+To honour the JVM settings for this build a single-use Daemon process will be forked.
+Daemon will be stopped at the end of the build
+Configuration on demand is an incubating feature.
+> Task :app:assembleDebug UP-TO-DATE
+
+BUILD SUCCESSFUL in 11s
+34 actionable tasks: 1 executed, 33 up-to-date
+
+APK path:
+android-tv-streaming-home-ui-215456-214421/android_tv_home_screen_ui/app/build/outputs/apk/debug/app-debug.apk
