@@ -42,7 +42,7 @@ fun ContentRow(
             itemsIndexed(items, key = { _, it -> it.id }) { _, item ->
                 PosterCard(
                     title = item.title,
-                    imageUrl = item.backdrop,
+                    imageDrawable = item.backdropRes,
                     onClick = { onFocusItem(item) }
                 )
             }

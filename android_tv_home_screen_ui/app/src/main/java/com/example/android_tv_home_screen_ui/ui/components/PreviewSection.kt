@@ -2,28 +2,19 @@ package com.example.android_tv_home_screen_ui.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.example.android_tv_home_screen_ui.data.mock.PosterItem
+import com.example.android_tv_home_screen_ui.R
 
 /**
  * PUBLIC_INTERFACE
@@ -44,6 +35,7 @@ fun PreviewSection(
     onInfo: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val painter: Painter = painterResource(id = item.backdropRes)
     Surface(
         modifier = modifier
             .padding(horizontal = 48.dp, vertical = 12.dp)
@@ -54,10 +46,10 @@ fun PreviewSection(
         shadowElevation = 10.dp
     ) {
         Box {
-            AsyncImage(
-                model = item.backdrop,
+            Image(
+                painter = painter,
                 contentDescription = null,
-                contentScale = ContentScale.Crop,
+                contentScale = androidx.compose.ui.layout.ContentScale.Crop,
                 modifier = Modifier.matchParentSize()
             )
             Box(

@@ -17,6 +17,11 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import androidx.compose.material3.Text
 import com.example.android_tv_home_screen_ui.tv.focus.FocusScale
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import com.example.android_tv_home_screen_ui.R
 
 /**
  * PUBLIC_INTERFACE
@@ -25,16 +30,19 @@ import com.example.android_tv_home_screen_ui.tv.focus.FocusScale
  * Focus-scalable poster card for a content item, with label overlay and shine hint.
  *
  * @param title Label text
- * @param imageUrl Poster/backdrop URL
+ * @param imageDrawable Poster/backdrop drawable resource
  * @param onClick Invoked on DPAD center/Enter
+ * @param modifier Modifier
  */
 @Composable
 fun PosterCard(
     title: String,
-    imageUrl: String,
+    imageDrawable: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var imageError by remember { mutableStateOf(false) }
+    val fallbackRes = R.drawable.figure_poster_fallback
     FocusScale(cornerRadius = 12.dp) { _, interactionSource ->
         Box(
             modifier = modifier
@@ -44,10 +52,11 @@ fun PosterCard(
                 .background(MaterialTheme.colorScheme.surface)
         ) {
             AsyncImage(
-                model = imageUrl,
+                model = if (!imageError) imageDrawable else fallbackRes,
                 contentDescription = title,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.matchParentSize()
+                modifier = Modifier.matchParentSize(),
+                onError = { imageError = true }
             )
             // Gradient label background
             Box(

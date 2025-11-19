@@ -1,0 +1,2 @@
+# Ignore generated files but NOT our poster images
+!src/main/res/drawable/figure_poster_*
