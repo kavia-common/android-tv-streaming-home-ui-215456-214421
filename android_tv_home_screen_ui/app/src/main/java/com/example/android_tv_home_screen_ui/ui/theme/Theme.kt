@@ -1,6 +1,5 @@
 package com.example.android_tv_home_screen_ui.ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -23,14 +22,14 @@ private val OceanDarkScheme: ColorScheme = darkColorScheme(
  * OceanTheme
  *
  * Applies the Ocean Professional color scheme and typography to the app.
+ * Centralizes the palette so screens/components don't hardcode colors.
  *
  * @param content Composable content block for theming scope
  */
 @Composable
 fun OceanTheme(content: @Composable () -> Unit) {
-    val colorScheme = OceanDarkScheme
     MaterialTheme(
-        colorScheme = colorScheme,
+        colorScheme = OceanDarkScheme,
         typography = OceanTypography,
         content = content
     )

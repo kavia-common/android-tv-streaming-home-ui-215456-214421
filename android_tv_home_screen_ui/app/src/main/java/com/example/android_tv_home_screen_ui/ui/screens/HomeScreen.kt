@@ -9,13 +9,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.android_tv_home_screen_ui.data.mock.PosterItem
 import com.example.android_tv_home_screen_ui.data.mock.RowData
-import com.example.android_tv_home_screen_ui.ui.components.ActionButtons
 import com.example.android_tv_home_screen_ui.ui.components.ContentRow
 import com.example.android_tv_home_screen_ui.ui.components.PreviewSection
 import com.example.android_tv_home_screen_ui.ui.components.TopNavBar
@@ -24,22 +22,19 @@ import com.example.android_tv_home_screen_ui.ui.components.TopNavBar
  * PUBLIC_INTERFACE
  * HomeScreen
  *
- * Arranges the Ocean Professional TV UI:
- * - Fixed top nav bar
- * - Preview/hero section reflecting focused poster
- * - Multiple horizontally scrolling rows with focus scaling
- *
- * Accessibility: large typography, high contrast, content descriptions on images.
+ * Arranges the Ocean Professional TV UI with navigation hook to Content Info.
  *
  * @param rows Content rows to display
  * @param selectedItem Currently selected item for hero
  * @param onSelectedChange Callback when selection updates from row focus
+ * @param onOpenContentInfo Navigate to ContentInfo screen when Info selected
  */
 @Composable
 fun HomeScreen(
     rows: List<RowData>,
     selectedItem: PosterItem,
-    onSelectedChange: (PosterItem) -> Unit
+    onSelectedChange: (PosterItem) -> Unit,
+    onOpenContentInfo: () -> Unit
 ) {
     val navItems = listOf("Home", "Movies", "Series", "My List")
     val selectedNav = remember { mutableIntStateOf(0) }
@@ -56,9 +51,9 @@ fun HomeScreen(
             )
             PreviewSection(
                 item = selectedItem,
-                onPlay = { /* pulse visual handled by system animation; no-op */ },
+                onPlay = { /* visual feedback handled in component; mock */ },
                 onAdd = { /* mock */ },
-                onInfo = { /* optional overlay in future */ }
+                onInfo = { onOpenContentInfo() }
             )
             Spacer(Modifier.height(8.dp))
             rows.forEach { row ->
